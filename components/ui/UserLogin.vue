@@ -1,6 +1,6 @@
 <template>
-  <v-card rounded color="#EC9143" class="pa-7">
-    <v-card-title>
+  <v-card rounded color="#EC9143" class="pa-5 ma-15">
+    <v-card-title class="pa-2 ma-5">
       <v-row class="rowCard fontTitle">
         Welcome
       </v-row>
@@ -9,10 +9,10 @@
       </v-row>
     </v-card-title>
     <v-card-text>
-      <v-row>
+      <v-row class="ma-1 pa-1">
         <v-text-field v-model="email" rounded label="E-Mail" outlined />
       </v-row>
-      <v-row>
+      <v-row class="ma-1 pa-1">
         <v-text-field v-model="password" rounded label="Password" outlined />
       </v-row>
     </v-card-text>

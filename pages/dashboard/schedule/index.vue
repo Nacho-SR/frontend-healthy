@@ -1,5 +1,5 @@
 <template>
-  <div>Dashboard</div>
+  <div>Agendar</div>
 </template>
 
 <script>

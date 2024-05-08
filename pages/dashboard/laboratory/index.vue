@@ -1,5 +1,5 @@
 <template>
-  <div>Dashboard</div>
+  <div>Laboratorio</div>
 </template>
 
 <script>

@@ -3,7 +3,7 @@
     <v-navigation-drawer
       app
       permanent
-      color="#1289CA"
+      color="#FFDEC8"
     >
       <v-sheet
         color="grey lighten-4"
@@ -54,7 +54,12 @@ export default {
   data: () => ({
     drawer: null,
     links: [
-      ['mdi-account', 'Usuarios', '/dashboard/usuarios']
+      ['mdi-account', 'Usuarios', '/dashboard/usuarios'],
+      ['mdi-view-dashboard-outline', 'Panel de control', '/dashboard'],
+      ['mdi-calendar-month-outline', 'Agendar', '/dashboard/schedule'],
+      ['mdi-bed-outline', 'Pacientes', '/dashboard/patients'],
+      ['mdi-cart-outline', 'Ordenes', '/dashboard/orders'],
+      ['mdi-microscope', 'Laboratorio', '/dashboard/laboratory']
     ]
   })
 }

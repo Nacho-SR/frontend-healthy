@@ -3,18 +3,14 @@
     <v-main>
       <v-sheet
         class="pa-0 ma-0"
-        height="100vh"
-        width="100vw"
         color="#FFDEC8"
       >
         <v-row>
-          <v-col cols="6">
-            <v-row height="300px" align="center" justify="center">
-              <h1>Clinic Patient's Dashboard</h1>
-            </v-row>
-            <v-row align="center" justify="center">
-              <v-img :src="require('@/assets/images/logo.svg')" />
-            </v-row>
+          <v-col cols="6" style="position: relative; display: inline-block;">
+            <div style="position: absolute; top: 21%; left: 50%; transform: translate(-50%, -50%); padding: auto;" class="fontTitle">
+              Clinic Patient's Dashboard
+            </div>
+            <v-img :src="require('@/assets/images/logo.svg')" class="ma-7" />
           </v-col>
           <v-col cols="6" style="height: 100%!important;" align-self="center">
             <Nuxt />
@@ -24,3 +20,10 @@
     </v-main>
   </v-app>
 </template>
+
+<style scoped>
+.fontTitle {
+  font-size: 32px!important;
+  line-height: 78px!important;
+}
+</style>
