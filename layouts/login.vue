@@ -23,7 +23,7 @@
 
 <style scoped>
 .fontTitle {
-  font-size: 32px!important;
+  font-size: 28px!important;
   line-height: 78px!important;
 }
 </style>

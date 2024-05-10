@@ -4,21 +4,21 @@
       app
       permanent
       color="#FFDEC8"
+      width="220px"
     >
       <v-sheet
-        color="grey lighten-4"
-        class="pa-4"
+        color="#FFDEC8"
+        align="center"
+        justify="start"
+        height="180px"
       >
-        <v-avatar
-          class="mb-4"
-          color="grey darken-1"
-          size="64"
+        <v-img
+          :src="require('@/assets/images/logo_dash.svg')"
+          :style="{ transform: 'scale(1.3)' }"
+          max-height="200px"
+          max-width="200px"
         />
-
-        <div>john@vuetifyjs.com</div>
       </v-sheet>
-
-      <v-divider />
 
       <v-list>
         <v-list-item

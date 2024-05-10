@@ -1,5 +1,5 @@
 <template>
-  <v-card rounded color="#EC9143" class="pa-5 ma-15">
+  <v-card rounded color="#FFAD76" class="pa-5 ma-15">
     <v-card-title class="pa-2 ma-5">
       <v-row class="rowCard fontTitle">
         Welcome
@@ -19,13 +19,22 @@
     <v-card-actions>
       <v-col cols="12">
         <v-row class="rowCard">
-          <v-btn block class="pa-2" color="#134700" @click="login">
+          <v-btn
+            block
+            class="pa-2 ma-1"
+            color="#134700"
+            min-width="20%!important"
+            max-width="55%"
+            @click="login"
+          >
             <span style="text-transform: none; color: white;">Log-In</span>
           </v-btn>
         </v-row>
-        <v-row class="rowCard">
-          <span>if you didn't have account </span>
-          <a @click="showDialog=true">Sign-Up</a>
+        <v-row class="rowCard" style="margin: 10px; padding: 10px;">
+          <div justify="center">
+            <span>If you didn't have account  </span>
+            <a @click="showDialog=true">Sign-Up</a>
+          </div>
         </v-row>
       </v-col>
     </v-card-actions>
