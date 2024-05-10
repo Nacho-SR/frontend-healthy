@@ -8,31 +8,43 @@
         Back
       </v-row>
     </v-card-title>
-    <v-card-text>
-      <v-row class="ma-1 pa-1">
-        <v-text-field v-model="email" rounded label="E-Mail" outlined />
+    <v-card-text justify="center" align="center" style="padding: 0%;">
+      <v-row class="ma-2 pa-2" style="width: 85%;">
+        <v-text-field
+          v-model="email"
+          rounded
+          label="E-Mail"
+          outlined
+          hide-details
+        />
       </v-row>
-      <v-row class="ma-1 pa-1">
-        <v-text-field v-model="password" rounded label="Password" outlined />
+      <v-row class="ma-2 pa-2" style="width: 85%;">
+        <v-text-field
+          v-model="password"
+          rounded
+          label="Password"
+          outlined
+          hide-details
+          type="password"
+        />
       </v-row>
     </v-card-text>
     <v-card-actions>
       <v-col cols="12">
-        <v-row class="rowCard">
+        <v-row class="rowCard ma-1">
           <v-btn
             block
-            class="pa-2 ma-1"
             color="#134700"
             min-width="20%!important"
-            max-width="55%"
+            max-width="40%"
             @click="login"
           >
             <span style="text-transform: none; color: white;">Log-In</span>
           </v-btn>
         </v-row>
-        <v-row class="rowCard" style="margin: 10px; padding: 10px;">
-          <div justify="center">
-            <span>If you didn't have account  </span>
+        <v-row class="ma-1 pa-1" justify="center" align="center">
+          <div>
+            If you didn't have account
             <a @click="showDialog=true">Sign-Up</a>
           </div>
         </v-row>

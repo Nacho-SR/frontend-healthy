@@ -9,14 +9,14 @@
       <v-sheet
         color="#FFDEC8"
         align="center"
-        justify="start"
-        height="180px"
+        justify="top"
+        height="160px"
       >
         <v-img
           :src="require('@/assets/images/logo_dash.svg')"
           :style="{ transform: 'scale(1.3)' }"
-          max-height="200px"
-          max-width="200px"
+          max-height="170px"
+          max-width="170px"
         />
       </v-sheet>
 
@@ -26,6 +26,7 @@
           :key="icon"
           link
           :to="ruta"
+          color="#ffa569"
         >
           <v-list-item-icon>
             <v-icon>{{ icon }}</v-icon>
@@ -54,7 +55,7 @@ export default {
   data: () => ({
     drawer: null,
     links: [
-      ['mdi-account', 'Usuarios', '/dashboard/usuarios'],
+      // ['mdi-account', 'Usuarios', '/dashboard/usuarios'],
       ['mdi-view-dashboard-outline', 'Panel de control', '/dashboard'],
       ['mdi-calendar-month-outline', 'Agendar', '/dashboard/schedule'],
       ['mdi-bed-outline', 'Pacientes', '/dashboard/patients'],
@@ -64,3 +65,9 @@ export default {
   })
 }
 </script>
+
+<style scoped>
+.v-text-field--outlined fieldset {
+  content:#ffa569 !important;
+}
+</style>
