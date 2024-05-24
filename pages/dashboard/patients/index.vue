@@ -70,7 +70,9 @@
           :key="item"
         >
           <v-card flat color="transparent">
-            <v-card-text>{{ text }}</v-card-text>
+            <v-card-text>
+              <RecetasPatient></RecetasPatient>
+            </v-card-text>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
@@ -152,6 +154,8 @@
 </template>
 
 <script>
+import RecetasPatient from '~/components/ui/recetasPatient.vue';
+
 export default {
   layout: 'dashboard',
   auth: true,
@@ -206,13 +210,10 @@ export default {
 }
 
 .v-tab {
-  /*border: 1px solid #f77d2c;*/
-  /* border: 1px solid rgb(244, 106, 0);*/
   border-radius: 25px; /* Bordes redondeados */
   transition: box-shadow 0.3s; /* Transición suave para lxa sombra */
 }
 
-/* Cambio de sombra al pasar el cursor */
 .v-tab:hover {
   box-shadow: 0 2px 4px rgba(244, 106, 0); /* Sombra personalizada */
 }

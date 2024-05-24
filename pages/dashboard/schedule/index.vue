@@ -8,7 +8,7 @@
         justify="center"
         class="ma-0 pa-0"
       >
-        <v-btn href="/" rounded outlined color="#82E7EA">Nueva cita</v-btn>
+        <v-btn @click="showDialog=true" rounded outlined color="#82E7EA">Nueva cita</v-btn>
       </v-col>
     </v-row>
     <v-row>
@@ -62,6 +62,79 @@
         </v-tab-item>
       </v-tabs-items>
     </v-row>
+    <v-dialog
+      v-model="showDialog"
+      persistent
+      width="500"
+      transition="dialog-bottom-transition"
+    >
+      <v-card>
+        <v-card-title>Nueva Cita</v-card-title>
+        <v-card-text>
+          <v-row width="100%">
+            <v-text-field
+              v-model="paciente"
+              calss="pa-2 ma-2"
+              label="Paciente"
+              placeholder="Nombre del paciente"
+              outlined
+            />
+          </v-row>
+          <v-row width="100%">
+            <v-text-field
+              v-model="dia"
+              calss="pa-2 ma-2"
+              label="Dia"
+              placeholder="Selecciona el dia de la cita"
+              outlined
+            />
+          </v-row>
+          <v-row width="100%">
+            <v-text-field
+              v-model="mes"
+              calss="pa-2 ma-2"
+              label="Mes"
+              placeholder="Selecciona el mes de la cita"
+              outlined
+            />
+          </v-row>
+          <v-row width="100%">
+            <v-text-field
+              v-model="anio"
+              calss="pa-2 ma-2"
+              label="Año"
+              placeholder="Selecciona el año de la cita"
+              outlined
+            />
+          </v-row>
+          <v-row width="100%">
+            <v-text-field
+              v-model="hora"
+              calss="pa-2 ma-2"
+              label="Hora"
+              placeholder="Hora de la cita"
+              outlined
+            />
+          </v-row>
+        </v-card-text>
+        <v-card-actions>
+          <v-col cols="6">
+            <v-btn block color="green">
+              <span style="text-transform: none; color: white">
+                Agendar
+              </span>
+            </v-btn>
+          </v-col>
+          <v-col cols="6">
+            <v-btn block color="red" @click="showDialog = false">
+              <span style="text-transform: none; color: white">
+                Cancelar
+              </span>
+            </v-btn>
+          </v-col>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-sheet>
 </template>
 
@@ -71,6 +144,7 @@ export default {
   auth: true,
   data () {
     return {
+      showDialog: false,
       tab: null,
       items: [
         'Ayer', 'Hoy', 'Mañana'
