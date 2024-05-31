@@ -4,20 +4,20 @@
       <v-card
         elevation="7"
         style="max-width: 85%;"
+        v-if="receta"
       >
         <v-row>
           <v-col class="mar-1" justify="center">
             <v-row align="center" class="mar-1">
-              <v-card-title class="pad-lateral">Nombre del paciente</v-card-title>
+              <v-card-title class="pad-lateral">Dr. {{ receta.doctor }}</v-card-title>
             </v-row>
             <v-row class="mar-1">
-              <v-card-title class="pad-lateral">Edad: X</v-card-title>
-              <v-card-title class="pad-lateral">Sexo: X</v-card-title>
+              <v-card-title class="pad-lateral">Medicamento: {{ receta.medicamento }}</v-card-title>
+              <v-card-title class="pad-lateral">{{ receta.dosis }} cada {{ receta.cada }} durante {{ receta.periodo }}</v-card-title>
             </v-row>
             <v-row>
-              <v-card-text class="pad-lateral">Telefono de contacto: xxx-xxx-xxxx</v-card-text>
-              <v-card-text class="pad-lateral">Correo electrónico: example@some.com</v-card-text>
-              <v-card-text class="pad-lateral">Dirección: Av. de la calle #11 Colonia, Irp, Gto.</v-card-text>
+              <v-card-text class="pad-lateral">Indicaciones extra: {{ receta.indicaciones }}</v-card-text>
+              <v-card-text class="pad-lateral">{{ receta.fecha-hora }}</v-card-text>
             </v-row>
           </v-col>
         </v-row>
@@ -28,10 +28,8 @@
 
 <script>
 export default {
-  data () {
-    return {
-
-    }
+  props: {
+    receta: Object
   }
 }
 </script>

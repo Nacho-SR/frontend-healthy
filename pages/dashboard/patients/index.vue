@@ -1,7 +1,11 @@
 <template>
   <v-sheet color="transparent">
     <v-row class="ma-1">
-      <v-col cols="10" />
+      <v-col cols="10">
+        <div>
+          <BarraPacientes @select-patient="displayPatient" />
+        </div>
+      </v-col>
       <v-col
         cols="2"
         class="ma-0 pa-0"
@@ -20,30 +24,7 @@
       </v-col>
     </v-row>
     <v-row align="center" justify="center" style="margin-top: 35px;">
-      <v-card
-        elevation="7"
-        style="max-width: 85%;"
-      >
-        <v-row>
-          <v-col class="w-1">
-            <v-img :src="require('@/assets/images/yo.jpg')" class="patient-img" rounded/>
-          </v-col>
-          <v-col class="mar-1" justify="center">
-            <v-row align="center" class="mar-1">
-              <v-card-title class="pad-lateral">Nombre del paciente</v-card-title>
-            </v-row>
-            <v-row class="mar-1">
-              <v-card-title class="pad-lateral">Edad: X</v-card-title>
-              <v-card-title class="pad-lateral">Sexo: X</v-card-title>
-            </v-row>
-            <v-row>
-              <v-card-text class="pad-lateral">Telefono de contacto: xxx-xxx-xxxx</v-card-text>
-              <v-card-text class="pad-lateral">Correo electrónico: example@some.com</v-card-text>
-              <v-card-text class="pad-lateral">Dirección: Av. de la calle #11 Colonia, Irp, Gto.</v-card-text>
-            </v-row>
-          </v-col>
-        </v-row>
-      </v-card>
+      <PatientCard :patient="selectedPatient" />
     </v-row>
     <v-row style="margin-top: 45px;">
       <v-tabs
@@ -70,9 +51,56 @@
           :key="item"
         >
           <v-card flat color="transparent">
-            <v-card-text>
-              <RecetasPatient></RecetasPatient>
-            </v-card-text>
+            <v-row
+              v-if="item == 'Recetas'"
+              align="center"
+              justify="center"
+            >
+              <v-card-text
+                v-for="receta in recetas"
+                :key="receta"
+              >
+                <RecetasPatient :receta="receta" />
+              </v-card-text>
+            </v-row>
+            <v-row
+              v-if="item == 'Revisiones'"
+              align="center"
+              justify="center"
+            >
+              <v-simple-table
+                fixed-header
+                height="300px"
+              >
+                <template v-slot:default>
+                  <thead>
+                    <tr>
+                      <th class="text-left">
+                        Fecha y hora
+                      </th>
+                      <th class="text-left">
+                        Tratamiento
+                      </th>
+                      <th class="text-left">
+                        Doctor
+                      </th>
+                      <th class="text-left">
+                        Comentario
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="item in desserts"
+                      :key="item.name"
+                    >
+                      <td>{{ item.name }}</td>
+                      <td>{{ item.calories }}</td>
+                    </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </v-row>
           </v-card>
         </v-tab-item>
       </v-tabs-items>
@@ -97,28 +125,19 @@
           </v-row>
           <v-row width="100%">
             <v-text-field
-              v-model="apaterno"
+              v-model="edad"
               calss="pa-2 ma-2"
-              label="Apellido paterno"
-              placeholder="Apellido paterno"
+              label="Edad"
+              placeholder="Edad"
               outlined
             />
           </v-row>
           <v-row width="100%">
             <v-text-field
-              v-model="amaterno"
+              v-model="sexo"
               calss="pa-2 ma-2"
-              label="Apellido materno"
-              placeholder="Apelido materno"
-              outlined
-            />
-          </v-row>
-          <v-row width="100%">
-            <v-text-field
-              v-model="direccion"
-              calss="pa-2 ma-2"
-              label="Direccion"
-              placeholder="Direccion"
+              label="Sexo"
+              placeholder="Sexo"
               outlined
             />
           </v-row>
@@ -131,10 +150,28 @@
               outlined
             />
           </v-row>
+          <v-row width="100%">
+            <v-text-field
+              v-model="email"
+              calss="pa-2 ma-2"
+              label="Email"
+              placeholder="Correo electronico"
+              outlined
+            />
+          </v-row>
+          <v-row width="100%">
+            <v-text-field
+              v-model="direccion"
+              calss="pa-2 ma-2"
+              label="Direccion"
+              placeholder="Direccion"
+              outlined
+            />
+          </v-row>
         </v-card-text>
         <v-card-actions>
           <v-col cols="6">
-            <v-btn block color="green">
+            <v-btn block color="green" @click="registrarPaciente">
               <span style="text-transform: none; color: white">
                 Registrar
               </span>
@@ -154,71 +191,91 @@
 </template>
 
 <script>
-import RecetasPatient from '~/components/ui/recetasPatient.vue';
 
 export default {
   layout: 'dashboard',
   auth: true,
   data () {
     return {
-      emailNuevo: null,
-      passwordNuevo: null,
       nombre: null,
-      apaterno: null,
-      amaterno: null,
-      direccion: null,
+      edad: null,
+      sexo: null,
       telefono: null,
+      email: null,
+      direccion: null,
       showDialog: false,
       tab: null,
+      selectedPatient: null,
       items: [
         'Recetas', 'Revisiones', 'Documentos', 'Pagos'
       ],
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+    }
+  },
+  methods: {
+    registrarPaciente () {
+      const url = '/register-patient'
+      const data = {
+        nombre: this.nombre,
+        edad: this.edad,
+        sexo: this.sexo,
+        telefono: this.telefono,
+        email: this.email,
+        direccion: this.direccion
+      }
+      this.$axios.post(url, data)
+        .then((res) => {
+          console.log('@@ res => ', res)
+          if (res.data.message === 'Patient registered successfully') {
+            this.showDialog = false
+          }
+        })
+        .catch((error) => {
+          console.log('@@ error => ', error)
+        })
+    },
+    displayPatient (patient) {
+      this.selectedPatient = patient
+      this.recetas = patient.recetas
     }
   }
 }
 </script>
 
 <style scoped>
-.patient-img {
-  margin: 0;
-  padding: 0;
-  object-fit: cover;
-  border-radius: 5px;
-}
 
-.pad-lateral {
-  padding-top: 3px; /* Espaciado superior */
-  padding-bottom: 3px; /* Espaciado inferior */
-}
+  .pad-lateral {
+    padding-top: 3px; /* Espaciado superior */
+    padding-bottom: 3px; /* Espaciado inferior */
+  }
 
-.mar-1{
-  margin-top: 0;
-  margin-bottom: 0;
-}
+  .mar-1{
+    margin-top: 0;
+    margin-bottom: 0;
+  }
 
-.w-1 {
-  max-width: 18%;
-  min-width: 50px;
-}
+  .w-1 {
+    max-width: 18%;
+    min-width: 50px;
+  }
 
-.tabs {
-  margin-left: 70px;
-  margin-right: 70px;
-  margin-top: 5px;
-  margin-bottom: 5px
-}
+  .tabs {
+    margin-left: 70px;
+    margin-right: 70px;
+    margin-top: 5px;
+    margin-bottom: 5px
+  }
 
-.v-tab {
-  border-radius: 25px; /* Bordes redondeados */
-  transition: box-shadow 0.3s; /* Transición suave para lxa sombra */
-}
+  .v-tab {
+    border-radius: 25px; /* Bordes redondeados */
+    transition: box-shadow 0.3s; /* Transición suave para lxa sombra */
+  }
 
-.v-tab:hover {
-  box-shadow: 0 2px 4px rgba(244, 106, 0); /* Sombra personalizada */
-}
+  .v-tab:hover {
+    box-shadow: 0 2px 4px rgba(244, 106, 0); /* Sombra personalizada */
+  }
 
-.theme--light.v-tabs-items {
-  background-color: rgb(255 255 255 / 0%);
-}
+  .theme--light.v-tabs-items {
+    background-color: rgb(255 255 255 / 0%);
+  }
 </style>

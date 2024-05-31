@@ -187,8 +187,8 @@ export default {
         amaterno: this.amaterno,
         direccion: this.direccion,
         telefono: this.telefono,
-        emailNuevo: this.emailNuevo,
-        passwordNuevo: this.passwordNuevo
+        email: this.emailNuevo,
+        password: this.passwordNuevo
       }
       this.$axios.post(url, data)
         .then((res) => {
