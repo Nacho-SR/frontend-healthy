@@ -234,6 +234,7 @@ export default {
       const res = await this.$axios.$get('/get-all-patients')
       console.log('API Response:', res) // Verifica la estructura de la respuesta
       this.patients = res.patients || [] // Ajusta según la estructura de la respuesta
+      console.log(this.patients)
       this.patientNames = this.patients.map(patient => patient.nombre)
     } catch (error) {
       console.error('Error obteniendo pacientes:', error)
@@ -251,6 +252,19 @@ export default {
         const res = await this.$axios.post(url, data)
         console.log('API Response:', res) // Verifica la estructura de la respuesta
         this.citas = res.data.citas || [] // Ajusta según la estructura de la respuesta
+
+        // Agregar datos del paciente a cada cita
+        this.citas.forEach((cita) => {
+          const paciente = this.patients.find(p => p.id === cita.pacienteId)
+          if (paciente) {
+            cita.pacienteNombre = paciente.nombre
+            cita.pacienteEdad = paciente.edad
+            cita.pacienteSexo = paciente.sexo
+            cita.pacienteTelefono = paciente.telefono
+            cita.pacienteEmail = paciente.email
+            cita.pacienteDireccion = paciente.direccion
+          }
+        })
 
         // Filtrar las citas por día
         const hoy = new Date()

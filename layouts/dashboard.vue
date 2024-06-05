@@ -72,8 +72,8 @@ export default {
         ['mdi-view-dashboard-outline', 'Panel de control', '/dashboard'],
         ['mdi-calendar-month-outline', 'Citas', '/dashboard/schedule'],
         ['mdi-bed-outline', 'Pacientes', '/dashboard/patients'],
-        ['mdi-cart-outline', 'Ordenes', '/dashboard/orders'],
-        ['mdi-microscope', 'Laboratorio', '/dashboard/laboratory']
+        ['mdi-cart-outline', 'Ordenes', '/dashboard/orders']
+        // ['mdi-microscope', 'Laboratorio', '/dashboard/laboratory']
       ],
       actualUser: this.$store.getters.getActualUser
     }
