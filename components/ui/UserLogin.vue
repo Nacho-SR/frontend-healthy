@@ -173,6 +173,7 @@ export default {
         const result = await res.data
         if (result.message === 'success') {
           this.$store.commit('setToken', result.token)
+          this.$store.commit('setUser', result.actualUser)
           this.$router.push('/dashboard')
         }
       }).catch((err) => {

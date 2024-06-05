@@ -57,7 +57,7 @@
               justify="center"
             >
               <v-card-text
-                v-for="receta in recetas"
+                v-for="receta in consultas"
                 :key="receta"
               >
                 <RecetasPatient :receta="receta" />
@@ -91,11 +91,85 @@
                   </thead>
                   <tbody>
                     <tr
-                      v-for="item in desserts"
-                      :key="item.name"
+                      v-for="item in consultas"
+                      :key="item.doctor"
                     >
-                      <td>{{ item.name }}</td>
-                      <td>{{ item.calories }}</td>
+                      <td>{{ item.fecha-hora }}</td>
+                      <td>{{ item.tratamiento }}</td>
+                      <td>{{ item.doctor }}</td>
+                      <td>{{ item.comentario }}</td>
+                    </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </v-row>
+            <v-row
+              v-if="item == 'Documentos'"
+              align="center"
+              justify="center"
+            >
+              <v-simple-table
+                fixed-header
+                height="300px"
+              >
+                <template v-slot:default>
+                  <thead>
+                    <tr>
+                      <th class="text-left">
+                        Fecha y hora
+                      </th>
+                      <th class="text-left">
+                        Tratamiento
+                      </th>
+                      <th class="text-left">
+                        Descarga
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="item in consultas"
+                      :key="item.doctor"
+                    >
+                      <td>{{ item.fecha-hora }}</td>
+                      <td>{{ item.tratamiento }}</td>
+                      <td></td>
+                    </tr>
+                  </tbody>
+                </template>
+              </v-simple-table>
+            </v-row>
+            <v-row
+              v-if="item == 'Pagos'"
+              align="center"
+              justify="center"
+            >
+              <v-simple-table
+                fixed-header
+                height="300px"
+              >
+                <template v-slot:default>
+                  <thead>
+                    <tr>
+                      <th class="text-left">
+                        Fecha y hora
+                      </th>
+                      <th class="text-left">
+                        Tratamiento
+                      </th>
+                      <th class="text-left">
+                        Pago
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      v-for="item in consultas"
+                      :key="item.doctor"
+                    >
+                      <td>{{ item.fecha-hora }}</td>
+                      <td>{{ item.tratamiento }}</td>
+                      <td>${{ item.pago }}</td>
                     </tr>
                   </tbody>
                 </template>
@@ -209,7 +283,7 @@ export default {
       items: [
         'Recetas', 'Revisiones', 'Documentos', 'Pagos'
       ],
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+      consultas: null
     }
   },
   methods: {
@@ -236,7 +310,7 @@ export default {
     },
     displayPatient (patient) {
       this.selectedPatient = patient
-      this.recetas = patient.recetas
+      this.consultas = patient.consultas
     }
   }
 }

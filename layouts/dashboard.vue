@@ -43,10 +43,10 @@
         </v-list>
         <v-col align="center" class="abajote">
           <v-avatar class="ma-2">
-            <v-img :src="require('@/assets/images/yo.jpg')"/>
+            <v-img :src="require('@/assets/images/yo.jpg')" />
           </v-avatar>
-          <v-list-item-title>Nombre Completo</v-list-item-title>
-          <v-list-item-subtitle>email@example.com</v-list-item-subtitle>
+          <v-list-item-title>{{ actualUser.nombre }} {{ actualUser.apaterno }} {{ actualUser.amaterno }}</v-list-item-title>
+          <v-list-item-subtitle>{{ actualUser.email }}</v-list-item-subtitle>
         </v-col>
       </v-navigation-drawer>
     </v-card>
@@ -64,17 +64,20 @@
 
 <script>
 export default {
-  data: () => ({
-    drawer: null,
-    links: [
-      /*  ['mdi-account', 'Usuarios', '/dashboard/usuarios'], */
-      ['mdi-view-dashboard-outline', 'Panel de control', '/dashboard'],
-      ['mdi-calendar-month-outline', 'Citas', '/dashboard/schedule'],
-      ['mdi-bed-outline', 'Pacientes', '/dashboard/patients'],
-      ['mdi-cart-outline', 'Ordenes', '/dashboard/orders'],
-      ['mdi-microscope', 'Laboratorio', '/dashboard/laboratory']
-    ]
-  })
+  data () {
+    return {
+      drawer: null,
+      links: [
+        /*  ['mdi-account', 'Usuarios', '/dashboard/usuarios'], */
+        ['mdi-view-dashboard-outline', 'Panel de control', '/dashboard'],
+        ['mdi-calendar-month-outline', 'Citas', '/dashboard/schedule'],
+        ['mdi-bed-outline', 'Pacientes', '/dashboard/patients'],
+        ['mdi-cart-outline', 'Ordenes', '/dashboard/orders'],
+        ['mdi-microscope', 'Laboratorio', '/dashboard/laboratory']
+      ],
+      actualUser: this.$store.getters.getActualUser
+    }
+  }
 }
 </script>
 
