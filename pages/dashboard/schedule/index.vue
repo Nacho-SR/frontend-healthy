@@ -51,6 +51,7 @@
                 <v-col class="mar-1 pa-0" justify="center" align="left">
                   <v-row align="center" class="mar-1">
                     <v-card-title class="pad-lateral">{{ cita.pacienteNombre }}</v-card-title>
+                    <v-card-title class="pad-lateral">Horario: {{ formatHour(cita.fecha) }}</v-card-title>
                   </v-row>
                   <v-row class="mar-1">
                     <v-card-title class="pad-lateral">Edad: {{ cita.pacienteEdad }}</v-card-title>
@@ -85,6 +86,7 @@
                 <v-col class="mar-1 pa-0" justify="center" align="left">
                   <v-row align="center" class="mar-1">
                     <v-card-title class="pad-lateral">{{ cita.pacienteNombre }}</v-card-title>
+                    <v-card-title class="pad-lateral">Horario: {{ formatHour(cita.fecha) }}</v-card-title>
                   </v-row>
                   <v-row class="mar-1">
                     <v-card-title class="pad-lateral">Edad: {{ cita.pacienteEdad }}</v-card-title>
@@ -119,6 +121,7 @@
                 <v-col class="mar-1 pa-0" justify="center" align="left">
                   <v-row align="center" class="mar-1">
                     <v-card-title class="pad-lateral">{{ cita.pacienteNombre }}</v-card-title>
+                    <v-card-title class="pad-lateral">Horario : {{ formatHour(cita.fecha) }}</v-card-title>
                   </v-row>
                   <v-row class="mar-1">
                     <v-card-title class="pad-lateral">Edad: {{ cita.pacienteEdad }}</v-card-title>
@@ -243,6 +246,15 @@ export default {
     this.loadCitas()
   },
   methods: {
+    formatHour (fecha) {
+      const date = new Date(fecha)
+      let hours = date.getHours().toString().padStart(2, '0')
+      const minutes = date.getMinutes().toString().padStart(2, '0')
+      const ampm = hours >= 12 ? 'p.m.' : 'a.m.'
+      hours = hours % 12
+      const strTime = `${hours}:${minutes} ${ampm}`
+      return strTime
+    },
     async loadCitas () {
       try {
         const url = '/myCitas'

@@ -36,7 +36,7 @@ export default {
   methods: {
     addMedicina () {
       // Lógica para agregar medicina al carrito
-      this.$emit('add-to-cart', { id: this.medicina.id, quantity: this.quantity })
+      this.$emit('add-to-cart', { id: this.medicina.id, quantity: this.quantity, descripcion: this.medicina.descripcion, nombre: this.medicina.nombre })
     },
     increment () {
       if (this.quantity < this.medicina.existencia) {

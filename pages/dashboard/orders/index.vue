@@ -103,9 +103,9 @@ export default {
           console.log('error => ', error)
         })
     },
-    handleQuantityUpdate ({ id, quantity }) {
+    handleQuantityUpdate ({ id, quantity, descripcion, nombre }) {
       if (quantity > 0) {
-        this.$set(this.carrito, id, quantity)
+        this.$set(this.carrito, id, quantity, descripcion, nombre)
       } else {
         this.$delete(this.carrito, id)
       }
@@ -121,6 +121,8 @@ export default {
     confirmarCarrito () {
       const carritoArray = this.carritoArray.map(item => ({
         id: item.id,
+        descripcion: item.descripcion,
+        nombre: item.nombre,
         quantity: item.quantity
       }))
 
@@ -130,7 +132,7 @@ export default {
 
       this.$axios.post(url, data)
         .then((res) => {
-          console.log(res.data.myMedicine)
+          // console.log(res.data.myMedicine)
           this.obtenerMedicinas()
           this.resetAllQuantities()
           this.mostrarCarrito = false
