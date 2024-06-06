@@ -3,7 +3,7 @@
     <v-row class="ma-1">
       <v-col cols="10">
         <div>
-          <BarraPacientes @select-patient="displayPatient" />
+          <BarraPacientes :patients="patients" @select-patient="displayPatient" />
         </div>
       </v-col>
       <v-col
@@ -133,7 +133,9 @@
                     >
                       <td>{{ item.fecha-hora }}</td>
                       <td>{{ item.tratamiento }}</td>
-                      <td></td>
+                      <td>
+                        <v-icon @click="downloadFile(item.csvPath)">mdi-download</v-icon>
+                      </td>
                     </tr>
                   </tbody>
                 </template>
@@ -265,7 +267,7 @@
 </template>
 
 <script>
-
+import { saveAs } from 'file-saver'
 export default {
   layout: 'dashboard',
   auth: true,
@@ -283,8 +285,12 @@ export default {
       items: [
         'Recetas', 'Revisiones', 'Documentos', 'Pagos'
       ],
+      patients: [],
       consultas: null
     }
+  },
+  async mounted () {
+    await this.obtenerPacientes() // Llama a la función para obtener los pacientes cuando la página se monta
   },
   methods: {
     registrarPaciente () {
@@ -308,9 +314,32 @@ export default {
           console.log('@@ error => ', error)
         })
     },
+    async obtenerPacientes () {
+      try {
+        const res = await this.$axios.$get('/get-all-patients')
+        console.log('API Response:', res) // Verifica la estructura de la respuesta
+        this.patients = res.patients || [] // Asigna los pacientes a la variable patients
+      } catch (error) {
+        console.error('Error obteniendo pacientes:', error)
+        this.patients = [] // Asigna un array vacío en caso de error
+      }
+    },
     displayPatient (patient) {
       this.selectedPatient = patient
       this.consultas = patient.consultas
+    },
+    downloadFile (csvPath) {
+      const url = `${window.location.origin}${csvPath}`
+      this.$axios({
+        url,
+        method: 'GET',
+        responseType: 'blob'
+      }).then((response) => {
+        const blob = new Blob([response.data], { type: 'text/csv' })
+        saveAs(blob, 'Ignacio_MRI.csv')
+      }).catch((error) => {
+        console.error('Error descargando el archivo:', error)
+      })
     }
   }
 }

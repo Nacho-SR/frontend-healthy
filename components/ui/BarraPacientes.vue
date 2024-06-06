@@ -1,46 +1,44 @@
 <template>
   <div>
-    <input
-      type="text"
-      v-model="query"
-      @input="onInput"
+    <v-select
+      v-model="selectedPatient"
+      :items="nombres"
+      label="Paciente:"
+      item-text="nombre"
+      return-object
+      @change="selectPatient"
       placeholder="Selecciona un paciente..."
     />
-    <ul v-if="patients.length && query">
-      <li v-for="patient in PacientesFiltrados" :key="patient.nombre" @click="selectPatient(patient)">
-        {{ patient.nombre }}
-      </li>
-    </ul>
   </div>
 </template>
 
 <script>
 export default {
-  data () {
-    return {
-      query: '',
-      patients: [],
-      PacientesFiltrados: []
+  props: {
+    patients: {
+      type: Array,
+      default: () => []
     }
   },
-  async mounted () {
-    try {
-      const res = await this.$axios.$get('/get-all-patients')
-      console.log('API Response:', res) // Verifica la estructura de la respuesta
-      this.patients = res.patients || [] // Ajusta según la estructura de la respuesta
-    } catch (error) {
-      console.error('Error obteniendo pacientes:', error)
-      this.patients = [] // Asigna un array vacío en caso de error
+  data () {
+    return {
+      selectedPatient: null
+    }
+  },
+  computed: {
+    nombres () {
+      console.log('pacientes en la barra', this.patients)
+      // Verificamos si this.patients está definido antes de intentar acceder a sus propiedades
+      if (this.patients && this.patients.length > 0) {
+        return this.patients
+      } else {
+        return []
+      }
     }
   },
   methods: {
-    onInput () {
-      this.PacientesFiltrados = this.patients.filter(patient =>
-        patient.nombre.toLowerCase().includes(this.query.toLowerCase())
-      )
-    },
-    selectPatient (patient) {
-      this.$emit('select-patient', patient)
+    selectPatient () {
+      this.$emit('select-patient', this.selectedPatient)
     }
   }
 }
