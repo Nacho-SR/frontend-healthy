@@ -1,4 +1,4 @@
-import { fullPathRedirect, rewriteRedirects } from '@nuxtjs/auth/lib/module/defaults'
+//import { fullPathRedirect, rewriteRedirects } from '@nuxtjs/auth/lib/module/defaults'
 import colors from 'vuetify/es5/util/colors'
 
 export default {
