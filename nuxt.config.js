@@ -4,6 +4,7 @@ import colors from 'vuetify/es5/util/colors'
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: false,
+  target: 'static',
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -44,7 +45,8 @@ export default {
   ],
 
   router: {
-    middleware: ['auth']
+    middleware: ['auth'],
+    base: 'https://github.com/Nacho-SR/frontend-healthy'
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
