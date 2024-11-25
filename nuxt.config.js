@@ -1,5 +1,5 @@
 // import { fullPathRedirect, rewriteRedirects } from '@nuxtjs/auth/lib/module/defaults'
-import colors from 'vuetify/es5/util/colors';
+import colors from 'vuetify/es5/util/colors'
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
