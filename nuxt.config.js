@@ -41,7 +41,7 @@ export default {
 
   router: {
     middleware: ['auth'],
-    base: './'
+    base: '/frontend-healthy/'
   },
 
   // Modules: https://go.nuxtjs.dev/config-modules
